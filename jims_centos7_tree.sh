@@ -12,7 +12,7 @@ echo " -------------------------------------------------------------------------
 echo " "
 echo " Author:  Jim Brent "
 echo " "
-echo " A custom directory viewer for CentOS 7."
+echo " A custom directory viewer for CentOS 7 from the current directory."
 # Main body of the shell script starts here.
 #
 # <Replace with the main command comments of your shell script.>
