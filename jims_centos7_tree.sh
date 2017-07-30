@@ -15,7 +15,7 @@ echo " "
 echo " A custom directory viewer for CentOS 7 from the current directory."
 # Main body of the shell script starts here.
 #
-# <Replace with the main command comments of your shell script.>
+# ^ (caret)    means "the beginning of the line". So "^a" means find a line starting with an "a".
 
 shopt -s globstar
 for file in **/*
