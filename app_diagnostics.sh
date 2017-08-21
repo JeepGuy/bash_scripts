@@ -30,7 +30,7 @@ echo " "
 
 # Main body of the shell script starts here.
 #
-# <Replace with the main command comments of your shell script.>
+# Here the file sizes of individual folders are printed first.
 
 df -h
 echo " "
@@ -43,7 +43,8 @@ echo " "
 echo " ----------------------------------------------------------------------------- "
 echo " "
 
-ls -l /home
+# This is where the directory is listed for something like /var/log
+ls -l /var/log
 
 echo " "
 echo " ----------------------------------------------------------------------------- "
