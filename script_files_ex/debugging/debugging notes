@@ -1,0 +1,81 @@
+
+Debugging notes:
+BASIC called:  Print debugging aka tracing aka x-trace
+-x prints commands and arguments as they executed
+    means that instead of variables being displayed the values of those variables is displayed
+    also trud for expansions wildcards are not displayed but what the expand to is displayed.
+  add the -s option to the #!/bin/bash statement as in #!/bin/bash -x
+  or inline use set -x to Set
+     and set +x to stop...
+
+-e = exit on error.
+can be combined with other options at the shebang statement
+-ex
+-xe
+-e -x
+-x -e
+
+-v = Prints shell input lines as they are read. BEFORE any substituions or expansions are applied.
+
+help set will display info about options... pipe to less to scroll
+as in help set | less
+
+Manual DEBUGGING
+
+create variable DEBUG with boolean
+
+DEBUG=true
+DEBUG=false
+
+if $DEBUG
+then
+	echo "Debug mode ON"
+else
+	echo :Debug mode off"
+fi
+
+with AND or OR
+
+DEBUG=true
+$DEBUG && echo "Debug mode ON."
+
+DEBUG=false
+$DEBUG || echo "Debug mode OFF."
+
+Another way:
+
+set DEBUG to echo or blank. and then if the line will be shown not executed
+
+$DEBUG="echo"
+
+or comment the line out to turn it off 
+
+functions
+
+debug(){
+	echo "Executing: $@" or write it to a log file.
+	$@
+}
+
+debug ls
+
+setting environment
+
+PS4 variable contols what is displayed before a line when using the "-x" option
+Default is "+"
+
+BASH variables
+	$BASH_SOURCE   :   $LINENO
+
+combining that with the function will yield more info to the screen.
+
+DOS vs LINUX Scripts
+
+file script.sh
+use a utility dos2unix "scriptName.sh"
+
+
+
+
+
+
