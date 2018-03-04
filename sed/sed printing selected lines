@@ -26,6 +26,32 @@ To suppress the automatic printing of all lines in the stream use the -n option.
 sed -n 2,4' data.txt
  will print ONLY lines 2,3 and 4.
 
+PATTERN
+----------
+
+sed -n '/Linux/p' data.txt
+
+  > will only print those lines containing the string Linux
+
+Can use negation operator:
+
+sed -n '/Linux/!p' data.txt
+
+  > will only print those lines the do NOT contain the string Linux
+
+  Print Last l;ine of the file"
+  use $
+
+      sed -n '$p' data.txt
+
+MULTIPLE Lines
+
+sed -n 2,4p
+>6,8p
+>12,$p' data.txt
+
+
+
 
 
 .....

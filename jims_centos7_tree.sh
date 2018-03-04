@@ -1,4 +1,4 @@
-/bash
+#!/bin/bash
 # The above line is called shebang.
 # Author: jcbrent
 # Created Date: 30 July 2017
