@@ -1,0 +1,47 @@
+SED Change Command
+===================
+ >  the c command
+ > can replace change line in the input data stream.
+
+SYNTAX  to insert and change commands.
+
+sed '[address]c\
+> new line'  file
+  - The new line will change or replace the line or lines specified by the
+    [address]
+
+
+Replace Multiple Lines
+-----------------------
+
+sed '[address]c\
+> new line1\
+> new line2\
+> new line3'  file
+
+Can replace a single line with multiple lines or multiple lines with a single line.
+
+Single Line replace:
+--------------------
+eg. sed '5c\
+> this is a new line'  data.txt
+-- replaces line 5 with "this is a new line"
+
+Mulitple Line replace:
+--------------------
+eg. sed '3,8c\
+> this is a new line'  data.txt
+-- replaces lines 3 through 8 with "this is a new line"
+
+PATTERN  (before the c command):
+=======
+sed '/London/c\
+> This is a new line' file.txt
+
+ - this will replace the line with the matching pattern with the new line:  This is a new line.
+
+
+
+
+
+...

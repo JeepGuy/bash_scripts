@@ -1,0 +1,85 @@
+sed_line_addressing_context_addressing
+======================================
+  -  providing and address before the sed command.
+
+ sed options [address] commands file(s)
+
+   - when no address is specified in a sed command, that command (filter) is applied to
+     all lines of input data.
+   - - To apply the command to only a few lines of the input, specify an address
+       one of two ways:
+        1. Line addressing
+        2. Context addressing
+
+Line Addressing:
+=================
+
+Provide the exact line number or a comma separated range of numbers.
+
+sed 's/str1/str2/' data.txt  ADD the line number as in:
+
+  sed '4s/str1/str2/' data.txt
+
+For a range of lines:  add a comma and the ending line.
+---------------------
+ sed '4,8s/str1/str2/' data.txt
+  - This will apply the command to lines 4 through 8
+
+For the Last line of the file:  (use a $)
+------------------------------
+  sed '$s/str1/str2/' data.txt
+  - applies the cmd to the last line in a file
+Range to end of file: add  line_num,$
+---------------------
+  sed '4,$s/str1/str2/' data.txt
+  - applies the command to the 4th line through the end of the file.
+
+Context Addressing:
+===================
+  - specify a single pattern or a comma separated set of patterns to select the patterns
+    on which the pattern is to be applied.
+  - The pattern is enclosed within two patterns
+    - - can be simple text or regular expressions.
+
+    e.g.  sed '/pattern/s/str1/str2/' data.txt
+        > The s command will be applied to only those lines that match the expression
+
+Range of lines:
+---------------
+    The following example will apply the command to the first occurrence of a line
+      that begins with pattern1 through to the line that contains pattern2.
+       > all lines between the two patterns
+
+      e.g.    sed '/pattern1/,/pattern2/s/str1/str2/' data.txt
+
+ COMBINING Line addressing and Context addressing:
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Line number to pattern:
+  e.g.    sed '3,/pattern2/s/str1/str2/' data.txt
+        > Apply s command beginning at line 3 through to the line that matches
+          the line that contains pattern2
+
+Pattern to a line number:
+
+  e.g.    sed '/pattern2/,9s/str1/str2/' data.txt
+          > from the first occurence of patter2 through to line number 9
+
+The + operator (Plus):
+   > Applies the command to the matched pattern plus the number of lines specified
+    after the plus sign.
+
+  e.g.    sed '/pattern2/+9s/str1/str2/' data.txt
+
+          This would apply the command to the first line that matched pattern2
+          and 9 additional lines.
+
+
+
+
+
+
+
+
+
+...

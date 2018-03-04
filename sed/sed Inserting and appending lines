@@ -1,0 +1,79 @@
+sed Inserting and appending lines
+==================================
+a command = append lines in the data stream  AFTER the line
+
+i command = insert lines in the data stream  BEFORE the line
+
+  > important note: Not entered on a single command line.
+
+APPEND
+-------
+sed '[address]a\'
+> (command prompt comes up.)
+> new line' file_name
+
+sed '4a\'
+> This is a new line' data.text
+
+INSERT
+------
+sed '[address]i\'
+> (command prompt comes up.)
+> new line' file_name
+
+sed '4i\'
+> This is a new line' data.text
+
+
+MULTIPLE LINES
+----------------
+add a new line with a backslash after each line
+  > until you don;t want to add any more lines.
+
+  sed '4a\'    (or use the i operator)
+  > This is a new line 1'\
+  > This is a new line 2'\
+  > This is a new line 3'\ data.text
+
+
+ADD AFTER  THE LAST LINE
+-------------------------------
+  $ use the last line operator.
+
+  sed '$a\'
+  > This is a new line' data.text
+
+ADD BEFORE the FIRST LINE
+--------------------------
+  1i   = line 1 with i operator.
+
+  sed '1i\'      (this is number 1 not L)
+  > This is a new line' data.text
+
+
+  PATTERN
+
+  The new lies will be added before or after the pattern
+  ------------------------------------------------------
+    > if you do not use a pattern that the lines will be added before or after
+      each line.
+        - can use to add blank lines in between each line.
+
+
+e.g.  BEFORE
+
+sed '/London/i\
+> This is a new line\
+> this is a second new line'  data.txt
+
+e.g.  AFTER
+
+sed '/London/a\
+> This is a new line\
+> this is a second new line'  data.txt
+
+For all lines
+------------
+> if you do not use a pattern that the lines will be added before or after
+  each line.
+    - can use to add blank lines in between each line.

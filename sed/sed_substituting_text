@@ -1,0 +1,53 @@
+SED Substituting text
+======================
+presented by a single s
+- must put n single quotes so BASH doesn't interpret it as a bash command.
+
+sed 'sed/searchPattern/replacementText/flags'  file
+
+e.g. sed 's/Delhi/Bangalore/'  data.txt
+  - This will replace the FIRST INSTANCE of the word Delhi with Bangalore in each
+     line of the file data.txt to stdout
+  - - To change a file you must direct this out to a tmp file and then rename it.
+  e.g. sed 's/Delhi/Bangalore/'  data.txt > file.txt
+  - - "-i" option = To replace the line of text in the data.txt you must use the -i option.
+
+Adding a number will replace only that occurrence of the string in the line.
+e.g. sed  's/Delhi/Bangalore/3'  data.txt
+   - This will replace only the third occurrence of the word Delhi in each line.
+   the numeral 3 is a flag
+
+"g" flag = global
+  - Will replace ALL occurrences of a specific string (word) = add the flag "g"
+e.g. sed  's/Delhi/Bangalore/g'  data.txt
+
+
+"p" flag = print
+  - will print all the lines in which the replacement has been done.
+e.g. sed  's/Delhi/Bangalore/p'
+   * must use the - n option to get the correct ouput.
+
+
+"w" flag = save all the modified lines
+   - save all the modified files to a file.
+ e.g. sed  's/Delhi/Bangalore/w/<name_of_file_to_save_info>'  data.txt
+
+ e.g. 2 = e.g. sed  's/Delhi/Bangalore/w file2.txt'   data.txt  > file3.txt
+   - will save the modified output to file2.txt and then all of the modified
+     output to file3.txt = a new file with all content including the changed lines.
+
+ "empty" flag = delete
+  - Delete the matched expression
+e.g. sed  's/Delhi//g file' data.txt
+  - - will replace all the occurrences of "Delhi" with nothing
+
+ALL ABOVE was input from a file.
+
+Now take the input from another command.
+----------------------------------------
+ - pipe the preceeding command into the sed command.
+e.g. sort data1.txt | sed 's/Delhi/Bangalore/'
+
+
+Can be used as a filter in the middle of a string of commands
+sort data1.txt | sed 's/Delhi/Bangalore/' | head -3  (head cmd to get only 3 lines)

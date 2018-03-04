@@ -1,0 +1,27 @@
+SED Negating an Editor Command
+==============================
+
+The negation operator is and Exclamation mark  !
+ - If you apply the negation operator is applied between the address (pattern)
+    and the sed command then the command is applied to the lines that do NOT match
+    the address (pattern) .
+    > will Invert the command.
+
+       sed '/pattern/!s/str1/str2/' data.txt
+
+   e.g.  sed '4!s/str1/str2/' data.txt
+            > The s command will be applied to every line of the input
+            EXCEPT line 4.
+
+    e.g.  sed '$!s/str1/str2/' data.txt
+            > The s command will be applied to every line of the input
+            EXCEPT the last line of the input = $ .
+
+
+    e.g.  sed '4,7!s/str1/str2/' data.txt
+            > The s command will be applied to every line of the input
+            EXCEPT from lines 4 - 7.
+
+    e.g.  sed '/pattern/!s/str1/str2/' data.txt
+           > The s command will be applied to every line of the input
+          EXCEPT the lines that contain the pattern /pattern/

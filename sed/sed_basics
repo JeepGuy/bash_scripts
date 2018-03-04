@@ -1,0 +1,30 @@
+SED = Stream editor
+Command for editing data streams.
+ - can use for finding replacing and editing test from stdin and outputting it to stdout.
+
+ sed options [address] commands file(s)
+   often "sed commands" -single letter commands
+   e.g. s = substituting text.
+        d = deleting text
+        p printing text
+
+[address] command applied to specific lines of text not the whole a command.
+
+If no file name is provided it takes its input from stdin.
+ - otherwise it can be to the right side of a pip    |
+
+
+ Reads one line at a time > applies the command > writes the line to output.
+
+ SED is actually  filter and can be used in a chain of commands.
+
+ if you want to save the results of your filter you must output the results to
+ a file or use the redirection operator
+
+
+    >> temp.file.name
+
+  Or can use the -i option for in place editing the input of the command (pipe)
+      * Known as the redirection operator.
+
+    e.g.:   sed -i `s/text1/text2/'  data.text'`  The changes will be made in the file itself.

@@ -1,0 +1,31 @@
+sed Printing Selected lines.
+
+p command - pint lines of a file
+
+-n option is used to suppress the default printing of all the lines
+      > almost always used with the P command.
+
+To print all lines of the file - use without an address line.
+
+    sed 'p' data.txt
+
+HOWEVER the above command will print all lines twice.
+
+ADDRESS
+  > with the address added the matching address will be printed twice.
+
+   sed 2,4' data.txt
+    will print lines 2,3 and 4 twice.
+
+This happens because sed automatically prints all lines in the data stream.
+ Therefore the p command prints the selected lines AND the sed command
+ automatically prints all the lines of the stream.
+
+To suppress the automatic printing of all lines in the stream use the -n option.
+
+sed -n 2,4' data.txt
+ will print ONLY lines 2,3 and 4.
+
+
+
+.....

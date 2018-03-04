@@ -1,0 +1,70 @@
+SED Deleting Lines
+=======================
+ The d or delete command is used to delete specific lines of text
+ from the data stream (input.)
+  > no changes are made to the file  just he input stream.
+  .. must save changes to a temp file and then renamed.
+   OR used the re-direction operator.
+   >>  the -i option for in place editing the input of the command (pipe)
+       * Known as the redirection operator.
+     e.g.:   sed -i `s/text1/text2/'  data.text'`  The changes will be made in the file itself.
+
+ If there is no address in the command then the delete command is applied to
+ all lines in the command.
+
+e.g. sed 'd' data.txt
+ > not very useful.
+
+sed '5d' data.txt
+ > will delete only the fifth line in the stream (input)
+
+sed '3,7d' data.txt
+ > will delete all lines from number three through 7 in the data.txt stream
+  include line 7
+
+Context addressing
+---------------------
+
+sed '/pattern/d' data.txt
+ > Will delete all lines that contain the pattern
+
+
+DELETE EMPTY LINES
+------------------
+Use the two anchoring characters    ^ for beginning of stream
+                                    $ for last line
+
+sed '/^$/d' fileA.txt
+  > will not delete lines that have a space, tab or a carriage return.
+
+DELETE ALL BLANK LINES
+-----------------------
+pattern to match all spaces, tabs, ~ empty lines.
+ >   /^[\t]*$
+
+ e.g. sed '/^[\t]*$' fileA.txt
+  > matches all occurrences of spaces, tabs and also matches empty lines.
+
+  Text patterns
+  -------------
+Matches all patterns that match the text and delete.
+
+RANGE:
+e.g. sed '/Oliver/,/Smith/d'  empdata.txt
+ > deletes all lines between Oliver and Smith.
+  - if the second pattern is not present that all lines until the end are
+  deleted.
+ - - if there are two occurrences of Oliver then the second occurrence will
+      also be matched and deleted until the next occurrence of Smith... Which
+      could be to the end of the file.
+
+      
+
+
+
+ ...
+
+
+
+
+s
