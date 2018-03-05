@@ -43,12 +43,16 @@ sed -n '/Linux/!p' data.txt
   use $
 
       sed -n '$p' data.txt
+        > will only print the last line of the file.
+
 
 MULTIPLE Lines
 
 sed -n 2,4p
 >6,8p
 >12,$p' data.txt
+  Will print 2,3,4  and 6,7,8 and 12 through the end of the file.
+
 
 
 

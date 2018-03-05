@@ -1,0 +1,51 @@
+sed Multiple Commands
+======================
+
+To run multiple commands use the -e option.
+
+sed -e '2,6s/text1/text2/; 1.5/stext3/text4'; 7,9d" data.text.
+    > seperated by semi-colon... no space BEFORE the semi colon.
+    > the command works on the output of the previous command.
+      similar to the pipe command.
+
+Can also enter each command on a separate line
+-----------------------------------------------
+sed -e '2,6s/text1/text2/;\
+>1,5/stext3/text4;\
+>7,9d' data.text.
+
+Can add -e option in between the commands:
+------------------------------------------
+sed -e '2,6s/text1/text2/' -e '1.5/stext3/text4' -e '7,9d' data.text.
+
+Use external files:
+-------------------
+
+
+sed -f file1.sed -f file2.sed data.txt
+  > no quotes needed.
+
+file1.sed
+s/text1/text2/     - no quotes
+
+
+Can specify multiple steams.
+-----------------------------
+sed -f file1.sed data.txt   data_two.txt
+  > will combine output of both files
+
+
+-e and -f can be used in a single command
+------------------------------------------
+
+sed -file1.sed -e '1,5/stext3/text4' data.txt
+
+Can group commands using curly braces
+-------------------------------------
+
+sed -e '2,6{s/text1/text2/; s/text3/text4;}' data.text.
+
+
+
+
+...
