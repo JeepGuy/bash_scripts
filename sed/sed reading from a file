@@ -1,0 +1,34 @@
+sed reading from a file
+=======================
+ r = The read command allows you to read from another file and insert its contents
+ into the editor output.
+
+ e.g. sed '5r file1' empdata
+  > This command will insert the contents of file1 AFTER line 5 of empdata
+    into empdata.
+
+To insert after teh last line use the $
+   e.g. sed '$r file1' empdata
+
+
+Patterns:
+---------
+ insert after a line that contains a pattern - Berlin
+'
+     e.g. sed '/Berlin/r file1' empdata
+        > If there are differnet occurrences of the pattern... the contents
+          will be inserted after each line that contains the pattern.
+
+REPLACE:
+--------
+Can use read command along with the delete command
+
+e.g.
+
+sed '/ItemList/{
+> r grocery.txt
+> d
+}' note.txt
+
+> After the line ItemsList in note.txt, the contents of the file grocery.txt will
+be inserted and the line ItemsList will be deleted.

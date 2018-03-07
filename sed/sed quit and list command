@@ -1,0 +1,29 @@
+sed quite and list command
+==========================
+Quit
+----
+q (queue) Used to quit the current execution flow.
+
+e.g.  sed '5q' empdata
+   > means quit after the fifth command.
+This will print 5 lines because of the automatic printing nature of the sed command.
+
+PATTERN:
+========
+e.g.  sed '/London/q' empdata
+ > will quit printing lines after the pattern London is matched.
+
+
+List
+----
+
+l = used to print all the non-printing characters
+   > makes the hidden characters visible.
+
+sed 'l' data.txt
+   > Will print the characters such as /t (tab) etc...
+   
+
+
+
+...

@@ -1,2 +1,40 @@
 sed Print Line Numbers
 ======================
+
+equal sign used to print line number = This will print the line number before
+the actual line is printed.
+
+sed '=' data.txt
+
+You can specify a line number using line number or context addressing.
+> Can be useful if yo want to find the line number upon which a particular pattern occurs
+
+
+Specifying an address:
+
+e.g.  sed '2,6=' data.txt
+  > will print the line numbers before line 2 - 6.
+
+Context Addressing
+-------------------
+  To find the line number on which the name "llinux" occurs you can use context addressing.
+
+e.g. sed '/Linux/=' data1.txt
+
+Will print the line numbers only in front of those lines that have the pattern (context address)
+Linux.
+
+Using the -n option will suppress the printing of all the lines except the numbers
+by adding the -n option.
+
+e.g. sed -n '/Linux/=' data1.txt
+
+Print only the lines that match the pattern with the preceeding number add the
+-p command.
+
+e.g. sed -n '/Linux/{=; p}' data1.txt
+
+Can use the equal command to find the total number of lines in the file.
+ > use tne $ because it displays the number of the last line in the file.
+
+e.g. sed -n '$=' data1.txt

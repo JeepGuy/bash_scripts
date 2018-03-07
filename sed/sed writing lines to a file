@@ -1,0 +1,55 @@
+sed Writing to another file
+---------------------------
+
+sed ''/w newfile.txt' data.txt
+
+This will write all the lines from data.txt to newfile.txt.
+
+Line Addressing
+---------------
+
+sed '2,6w newfile.txt' data.txt
+
+  > only the lines from 2 through 6 will be written to the new file.
+  - can use the -n option to suppres output.
+  > if the newfile.txt does not exist sed will create it.
+  > if the newfile.txt exists, sed will over write it.
+  - can specify the newfile.txt location by absolute or relative path.
+  > user who uses this command must have write permissions on the newfile.txt file.
+
+Context addressing
+-------------------
+> write selective lines to the file.
+
+sed '/Bangalore/w fileB.txt'  students.txt
+
+> all lines that contain Bangalore will be written to the fileB.txt
+
+
+Multiple files
+--------------
+
+sed -n '/Unix/w file1.txt
+> /Linux/w file2.txt
+> /Windows/w file3.txt'  data.txt
+
+All lines containing Unix will be written to file.txt
+All lines containing Linux will be written to file.txt
+All lines containing Windows will be written to file.txt
+
+
+Negation operator
+-----------------
+
+sed -n '/Windows/w file1.txt
+> /Windows/!w file2.txt'  data.txt
+
+Split a big file into pieces
+-----------------------------
+
+sed -n '1,5w dataA
+> 6.10w dataB
+> 11,$w dataC'  data.txt
+
+-- this will be split into three files, 1-5, 5 - 10 and 11 through the end of
+the last line.

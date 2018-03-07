@@ -1,0 +1,35 @@
+sed Transforming Characters
+============================
+ y is the transform command
+
+e.g. sed 'y/str1/str2'
+    > The character s in str1 is replaced with the s in str2.
+    The characters must correspond and the size must be the same.
+     - this is global meaning it will be applied to any source characters in
+     in line in the stream.
+
+The line it applies to can be limited by line addressing or context addressing.
+-------------------------------------------------------------------------------
+
+e.g. sed 'y/.|/-%'   data12.txt
+
+This means the . and the pipe bar will be replaced with a - dash and a % percent
+sign.
+
+With Line addressing:
+---------------------
+e.g. sed '3,8y/.|/-%'   data12.txt
+
+ > This will apply to line3 3 - 8  only.
+
+
+Context Addressing:
+-------------------
+
+e.g. sed '/London/y/.|/-%'   data12.txt
+
+The changes were applied to only the line containing London.
+
+
+
+...
