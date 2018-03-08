@@ -1,0 +1,68 @@
+AWK
+===
+
+- a text processing tool - similar to sed but much more powerful.
+> Used for generating formatted reports by extracting fields from large files
+It is a full programming language that includes all the constructs of a programming
+language such as:
+ Operators, variables, if else statements,
+ > Resembles the constructs of the C Progamming language.
+ Named after the initial letters of its creators names:
+ Aho
+ Weinberger
+ Kernighan
+
+
+Basic construct:
+
+$awk options 'selection_criteria {command}'  files(s)
+
+Like sed it can take its input from a file or more than one file.
+ > If no file input is provided it takes its standard input from the command line.
+ - Can be used on the right side of a pipe |
+   THEREFORE, act on an output of a command.
+
+   AWK commands are generally preceeded by a selection criteria.
+
+   Selection criteria can be a pattern which is a simple selection string or
+   it can have regular expressions like that which is in grep.
+   > Like the addressing part of sed but much more advanced.
+      - can use variables, operators and other programming statements.
+      - can select line based on the trim (?) conditions.
+      - command should be enclosed in curly braces {}
+How it works:
+like sed - it reads one line of the input stream at a time and applies the commands on it.
+- It does not make any changes to the input file.
+   -- it just processes the data and outputs it to stdout.
+   - It does not make any changes to the input file.
+   - can save the data to another file by using the re-direction operator.
+e.g.
+
+  awk '/London/{print}' data.txt
+
+  The selection criteria is London, the command is the awk command "print".
+   > just prints the text to the stdout.
+
+   Printing is the default action of awk.
+    THEREFORE the following stmt is identical to the above stmt.
+
+   awk '/London/{print}' data.txt
+
+PRINT ALL
+==========
+   To print all lines of the file - don't specify a selection criteria as in:
+
+   awk '{print}' data.txt
+
+   If no command is provided then the print command is assumed.
+
+   Cannot omit both the selection criteria and the command.
+so
+   awk data.txt doesn't do anything.
+
+REDIRECTION Operator     >
+====================
+awk '/London/{print}' data.txt > newFile.txt
+
+To change the original file you can re-name the newFile.txt to data.txt after
+the operation is performed.
