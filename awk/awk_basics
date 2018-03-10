@@ -1,4 +1,4 @@
-AWK
+WK
 ===
 
 - a text processing tool - similar to sed but much more powerful.
@@ -22,7 +22,7 @@ Like sed it can take its input from a file or more than one file.
  - Can be used on the right side of a pipe |
    THEREFORE, act on an output of a command.
 
-   AWK commands are generally preceeded by a selection criteria.
+   AWK commands are generally preceded by a selection criteria.
 
    Selection criteria can be a pattern which is a simple selection string or
    it can have regular expressions like that which is in grep.
@@ -30,6 +30,8 @@ Like sed it can take its input from a file or more than one file.
       - can use variables, operators and other programming statements.
       - can select line based on the trim (?) conditions.
       - command should be enclosed in curly braces {}
+      - the selection criteria and the command are enclosed within single quotes
+
 How it works:
 like sed - it reads one line of the input stream at a time and applies the commands on it.
 - It does not make any changes to the input file.
@@ -46,7 +48,7 @@ e.g.
    Printing is the default action of awk.
     THEREFORE the following stmt is identical to the above stmt.
 
-   awk '/London/{print}' data.txt
+   awk '/London/' data.txt
 
 PRINT ALL
 ==========

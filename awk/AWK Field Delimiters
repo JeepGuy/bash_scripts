@@ -1,0 +1,19 @@
+AWK Field Delimiter
+====================
+
+AWK by default uses a space or spaces as a field delimiter.
+
+To specify a different character as a field delimiter use the
+ " - F " option
+
+ awk -F'|' '{print $2}' data.txt
+
+  This will split the input on the pipe character.
+  - you can use this with any single character as an input field delimiter.
+
+  ---
+
+etc/passwd uses the colon as a field separator.
+ > therefore you can split the text by the colon.
+
+tail is the linux command to outpu the last part of files given to is via standard input.
