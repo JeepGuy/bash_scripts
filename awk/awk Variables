@@ -1,0 +1,130 @@
+awk Variables
+=============
+
+Store strings or numeric values: Variables in Awk can store either data type.
+    > depends on the context of thir use:
+sum = sum + 1
+text = "xyz"
+
+CASE Sensitive: Variables names are case sensitive.
+
+REASSIGN = some of the built in variables can be re-assigned
+
+
+Built in variables = such as $NF, $NR, $1, $2, etc...
+------------------
+
+FILENAME = Name of the current input file.
+
+NR =  stores the number of the current input line number or record number
+      Gives you the total number of records being processed or line number.
+    $NR =  represents the current line number = record number
+
+NF = Number of fields input record... or line...
+          Also defined elsewhere as:  fields in the input file.
+
+INPUT FIELD NUMBERS:
+--------------------
+$1 = First field of the input data line.
+$2 = Second field of the input data line.
+3$ = Third field of the input data line.
+
+$NF = Last field of the input line
+
+$0 = The entire input line.
+
+
+FS = INPUT field sepearator character
+    Default:  Space or a tab (/t)
+
+OFS = OUPUT Field Separator
+
+
+RS = Input record separator character
+        > Default:  newline
+ORS = Output record separator character
+        > Default:  newline
+
+
+
+User defined variables
+----------------------
+ User defined variables are defined when used first time.
+ >  Implicitly initialized to 0 (zero) or null string.
+
+
+PRINT line numbers in the output
+    > use built in variable NR
+
+awk '{print NR, $0}' teachers.txt
+    > will print Line numbers AND each line $0
+
+SELECTION Criteria:
+--------------------
+
+awk 'NR==2,NR==5{ print NR, $0}' teachers.txt
+    > will print lines from 2 - 5  WITH the line number (no period)
+
+OR operator = || = double pipe bar.
+awk 'NR==2 || NR==5{ print NR, $0}' teachers.txt
+ > will be applied when the record number is EITHER 2 or 5...
+  PRINT 2   AND  % because awk is applied to each input line.
+
+PATTERN
+-------
+
+awk 'NR==2,/Dehli/{ print NR, $0}' teachers.txt
+    > Will print lines from line 2 to the first occurrence of Delhi.
+
+
+OMIT line 1 one
+----------------
+
+awk 'NR!=1{ print NR, $0}' teachers.txt
+      > NR is NOT equal to line 1... filters out line one.
+
+
+GREATER Than operator
+----------------------
+
+awk '$3>5000{ print NR, $0}' teachers.txt
+        > will print only those lines where the 3rd field is greater than 5000
+
+VARIABLE assignment
+awk '{total=$2+$3+$4: print$0, total/300*100}' teachers.txt
+      > will print each line with the total or the three fields at the end of the line
+
+awk '{total=$2+$3+$4: print$0, total}' teachers.txt
+        > will print each line with the total or the three fields and then
+          ther results of the division equation in the last line (here a percentage)
+
+CONTROL Printing  = use a c style printing statment
+----------------
+
+Printing the same line above with c style formatting:
+ABOVE LINE:  awk '{total=$2+$3+$4: print$0, total/300*100}' teachers.txt
+
+awk '{total=$2+$3+$4
+> printf("%s  %d  %.2f\n", total, total/300*100)}' teachers.txt
+
+%s = string
+%d = decimal
+%f = float
+
+%.2f = float to two places.
+
+\n = new line
+
+() parenthesis are optional
+
+
+
+
+
+
+
+
+
+
+
+...

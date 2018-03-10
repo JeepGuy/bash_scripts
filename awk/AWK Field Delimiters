@@ -16,4 +16,12 @@ To specify a different character as a field delimiter use the
 etc/passwd uses the colon as a field separator.
  > therefore you can split the text by the colon.
 
-tail is the linux command to outpu the last part of files given to is via standard input.
+tail is the linux command to output the last part of files given to is via standard input.
+
+tail -5 /etc/passwd | awk -F':' '{print $1, $NF}'
+Stdout:
+postfix /sbin/nologin
+sshd /sbin/nologin
+tcpdump /sbin/nologin
+jcbrent /bin/bash
+dockerroot /sbin/nologin

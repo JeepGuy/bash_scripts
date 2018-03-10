@@ -1,0 +1,139 @@
+awk Begin and END Blocks
+========================
+
+BEGIN And END Keywords allow you to run some commands before or after the
+processing of data.
+
+awk 'BEGIN {commands}
+  {commands}
+END {commands}' file
+
+The commands in the curly braces after the BEGIN keyword are executed before
+awk begins reading or processing input data.
+      > This space can be used for printing headings or initializing variables.
+
+The commands in the curly braces after the END keyword are executed after
+awk has finished processing the input data.
+
+EXAMPLES:
+---------
+
+awk 'BEGIN {"\t...Employee Details..."}
+{print $0}
+END {"\t...End of Report..."}'  empdata.txt
+
+This will print  ...Employee Details... and  ...End of Report... before and after the output.
+
+awk 'BEGIN {"\t...Employee Details..."}
+{count++; print $0}
+END {print count; "employees"}'  empdata.
+
+the ++ is the increment operator counts... used instantiated numerical variables are initialized
+to zero therefore the count var starts at 0 and is incremented each time a line is
+processed... 0+1, 1+1, 2+1 etc...
+This will print the employee details before the lines, and the count of employees
+after the last processed line of the file.
+
+FOR NUMBER OF RECORDS - can use the builtin variable NR:
+  This outputs the same as the above awk command.
+
+awk 'BEGIN {"\t...Employee Details..."}
+{ print $0}
+END {print NR ; "employees"}'  empdata.
+
+THE COUNT FUNCTION ABOVE  can be used to count the selected output of a command
+ > uses selection criteria
+
+e.g.
+
+awk '$=="Developer"{dcount++}
+{print $0}
+END {print dcount; "developers"}'  empdata.
+    > will print all lines but count only those where the 4th field equals
+      developer.
+
+
+awk '$=="Developer"{dcount++}
+> $4=="Webmaster" {wcount++}
+> {print $0}
+END {print dcount; print wcount, "developers"}'  empdata.
+
+> will count and print the webmasters as well...
+
+
+awk '{sum=+$3; print $0}
+>END {print sum}' teachers.txt
+      > This will add each of the 3rd fields in each read/processing action
+        and the + is the update operator... and means:  sum=sum+$3
+This will print the sum
+
+To get the average - divide the sum by the builtin variable NR.
+
+awk '{sum=+$3; print $0}
+>END {print sum/NR}' teachers.txt
+
+----
+
+Find out how many teachers are getting more than $5K per year.
+
+awk '3>5000{count++}
+>(print $0)
+END {print count}' teachers.txt
+
+SETTING THE Separator variables:
+--------------------------------
+-F option is used to set the input separator variable option.
+
+for a file in which the seperator is a pipe...
+
+awk -F"|" '{print $1, $4}' data.txt
+    > will separate the lines at the pipe not any spaces.
+CAN ALSO DO THIS IN THE BEGIN SECTION
+--------------------------------------
+Use the FS operator.
+
+awk 'BEGIN {FS="|"}
+> '{print $1, $4}' data.txt
+
+    > will ouput the same as the above command.
+
+
+OFS = Output Field Separator
+----------------------------
+        > default is a blank
+        > the comma in the above statement would be replaced by a blank.
+
+awk 'BEGIN {FS="|"; OFS=":"}
+> '{print $1, $4}' data.txt
+
+This will have the same data output but it will be separated by a colon.
+
+Default  record  separator is a new line
+-----------------------------------------
+    > so each new line is considered a record
+
+to change it because the data is formatted across several lines:
+------------
+So in an address book for instance:
+
+The FS field separator is a new line and the record separator is an empty string.
+
+awk 'BEGIN {FS=\n};RS=""}
+>{print $1, $3}' address.txt
+
+would give us the first field on line 1 + a space + the 3rd field on line 3 = all on 1 line.
+
+NOW add the output field separator to the above awk statement.
+
+awk 'BEGIN {FS=\n};RS=""; OFS="@"}
+>{print $1, $3}' address.txt
+     - the output is the same but instead of a space... the @ is used.
+
+Add the Output Record Separator ORS.
+------------------------------------
+
+awk 'BEGIN {FS=\n};RS="": ORS="|"}
+>{print $1, $3}' address.txt
+      -- This will print everything on the same line separated by pipe bars.
+
+...

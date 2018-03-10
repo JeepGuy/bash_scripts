@@ -1,0 +1,42 @@
+awk Multiple Commands
+=====================
+Write multiple commands in the curly braces {} seperated by a semi-colon ;
+
+awk '{$3=$3+400; print $0}' teachers.txt
+ > the semi-colon is between the two seperate commands.
+  - first 400 is added to the the third field
+  - print $0 = print the entire line.
+  * since there is no selection criteria all the lines are printed.
+
+Used with selection criteria
+=============================
+
+awk '/London/{$3=$3+400; print $0}' teachers.txt
+  > Now the selection criteria London is added therefore the following commands
+    will only be applied to those lines that contain the word London.
+    AND the entire line is displayed.
+
+
+
+To print all the lines but only select some lines for modification then separate
+the commands with curly braces {}
+
+awk '{$3=$3+400} {print $0}' teachers.txt
+
+SPLIT the awk command across lines (cr)
+----------------------------------------
+
+awk '/London/{$3=$3+400}
+>  {print $0}' teachers.txt
+
+EXAMPLE 2
+---------
+
+awk '/London/{$3=$3+400
+> /Delhi/{$2="Bangalore"; $#=$3+300}
+> ; print $0}' teachers.txt
+
+This will add 400 to the third field IF London is in the line,
+and Change Delhi to Bangalore if the line contains Delhi,
+and adds 300 to the 2nd field if the line contains Delhi
+and then it prints all the lines.

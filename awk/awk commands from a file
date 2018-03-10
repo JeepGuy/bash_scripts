@@ -1,0 +1,59 @@
+Running awk commands from a file
+=================================
+
+Just like sed...
+
+Use the " -f" instruction to
+store commands in a file and run them by calling the file
+ > to distinguish this file from other files you can give it the
+   extension .awk
+EXAMPLE:
+--------
+
+cat file1.awk
+{
+$2=$2+5
+$3=$3=10
+print $0
+}
+TO RUN:
+
+awk -f file1.awk students.txt
+
+This will apply the commands in the saved file to each line of the students.txt file.
+
+EXAMPLE 2
+---------
+
+cat file2.awk
+/London/{print}
+/Berlin/{print}
+
+THE PRINT statement is not required because {print} is the default action of awk.
+THEREFORE: In the file
+cat file2A.awk
+/London/{print}
+/Berlin/
+
+Line 1 is will have the same output as line 2
+
+awk -f file2.awk teachers.txt
+ > will only print the lines that have either London or Berlin in them.
+ AND if you used file2A.awk = SAME OUTPUT.
+
+ CAN also have multiple commands per line:
+
+cat file3.awk
+
+ /London/{$3=$3+100; print}
+ /Berlin/{$3=$3+200; print}
+
+ is a valid awk set of operations...
+
+TO PRINT ALL THE LINES: move the print statement to the last line of the file
+and remove it from the multiple command section in the awk statment
+ - - - This is because there is no selecton criteria for the print command.
+
+/London/{$3=$3+100}
+/Berlin/{$3=$3+200}
+{print}

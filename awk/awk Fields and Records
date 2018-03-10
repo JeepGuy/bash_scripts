@@ -68,7 +68,6 @@ Ls -l example:
 To PRINT ONLY THE FILE NAME AND PERMISSIONS of the above ls -l output
 =============================================
 
-NR - represents the current line number = record number
 ---
 
 ls -l | awk '{print $NF, "\t", $1}'
