@@ -132,7 +132,7 @@ awk 'BEGIN {FS=\n};RS=""; OFS="@"}
 Add the Output Record Separator ORS.
 ------------------------------------
 
-awk 'BEGIN {FS=\n};RS="": ORS="|"}
+awk 'BEGIN {FS=\n;RS="": ORS="|"}
 >{print $1, $3}' address.txt
       -- This will print everything on the same line separated by pipe bars.
 
