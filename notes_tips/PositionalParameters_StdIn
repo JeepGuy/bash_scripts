@@ -1,0 +1,27 @@
+POSITIONAL PARAMETERS
+---------------------
+- variable that contain the contents of the command line.
+ The variables are $0 - $9
+ - The script itself is always $0.
+ EXAMPLE:
+
+ $ script.sh parameter1 parameter2 parameter3
+$0 : "script.sh"
+$1 : "parameter1"
+$2 : "parameter2"
+$3 : "parameter3"
+
+Instead of referring to $1 throughout the script you should create a new variable
+the refer to that piece of data.
+
+NEW_VARIABLE_NAME=$1
+
+
+ACCEPTING User Input (STDIN)
+----------------------------
+
+The read command accepts STDIN.
+Can also accept input from the output of another command.
+
+Syntax:
+read -p "User PROMPT text" VARIABLE

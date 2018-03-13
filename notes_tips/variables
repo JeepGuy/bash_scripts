@@ -1,0 +1,47 @@
+Var names:
+----------
+ NOTE The SheBang is the path to the interpreter:
+ AS IN:    #!/path/to/interpreter
+ or:      #!/bin/bash
+
+Storage locations that have a name
+Name-value pairs
+Syntax:
+     VARIABLE_NAME="Value"
+    * Do not use any spaces before or after the equal sign.
+Variables are case sensitive
+UPPER CASE by convention - By convention variables are uppercase
+
+
+Cannot:
+
+- Start with a number
+- contain hypens
+- contain at "@" signs.
+
+Valid:
+------
+FIRST3LETTERS="ABC"
+FIRST_THREE_LETTERS="ABC"
+firstThreeLetters="ABC"
+
+Invalid:
+--------
+3LETTERS="ABC"
+first-three-letters="ABC"
+first@Three@Letters="ABC"
+
+
+Must include curly braces if you are using the variable with other text/data.
+
+ -MY_SHELL="bash"
+  echo "I am ${MY_SHELL}ing on my keyboard."
+
+ - - without the burly braces the variable won't print.
+
+
+ Assignment:
+ -----------
+ Can assign the results of a command: such as hostname.
+ SERVER_NAME=$(hostname)   OR older way has back-ticks: SERVER_NAME=$`hostname`
+ > must have parenthesis around the command.

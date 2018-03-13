@@ -1,0 +1,66 @@
+For Loops
+
+for VARIABLE_NAME in ITEM_1 ITEM_N
+do
+command 1
+command 2
+command N
+done
+
+> The first item in the list is assigned to the VARIABLE_NAME and then is executed,
+then the next item in the list is assigned to the variable and executed until the end
+of the list is reached.
+
+EXAMPLE:
+
+for COLOR in red green blue
+do
+echo "COLOR: $COLOR"
+done
+
+usually have a space separated set of values..
+
+Common to have the list declared as a variable:
+------------------------------------------------
+EXAMPLE:
+
+COLORS="red green blue"
+for COLOR in $COLORS
+do
+echo "COLOR: $COLOR"
+done
+
+
+CHANGE THE NAME OF A FILE:
+--------------------------
+
+#!/bin/bash
+PICTURES=$(ls *jpg)
+DATE=$(date +%F)
+for PICTURE in $PICTURES
+do
+echo "Renaming ${PICTURE} to ${DATE}-${PICTURE}"
+mv ${PICTURE} ${DATE}-${PICTURE}
+done
+
+
+POSITIONAL PARAMETERS
+---------------------
+- variable that contain the contents of the command line.
+ The variables are $0 - $9
+ - The script itself is always $0.
+ EXAMPLE:
+
+ $ script.sh parameter1 parameter2 parameter3
+$0 : "script.sh"
+$1 : "parameter1"
+$2 : "parameter2"
+$3 : "parameter
+
+$@ : accesses all the variables $1 - $9 - this way you can enter in multiple values
+on the command line and the for loop will access each variable in order.
+
+Instead of referring to $1 throughout the script you should create a new variable
+the refer to that piece of data.
+
+NEW_VARIABLE_NAME=$1
