@@ -1,0 +1,76 @@
+Exit Statuses and Return codes
+==============================
+
+Every command returns an exit status
+Range from 0 to 255
+0 = success
+Other than 0 = error condition
+Use for error checking
+Use man or info to find meaning of exit status
+
+
+$? contains the return code of the previously
+executed command.
+
+ls /not/here
+echo "$?"
+
+
+Using exit status for decisions
+-------------------------------
+The -c parameter for the ping command sends only 1 ping.
+
+HOST="google.com"
+ping -c 1 $HOST
+if [ "$?" -eq "0" ]
+then
+echo "$HOST reachable."
+else
+echo "$HOST unreachable."
+fi
+
+
+> Can assign the RETURN_CODE to a variable and then use that variable later in
+the script
+
+EXAMPLE:
+HOST="google.com"
+ping -c 1 $HOST
+RETURN_CODE=$?
+if [ "$RETURN_CODE" -ne "0" ]
+then
+echo "$HOST unreachable."
+fi
+
+
+And or OR
+---------
+&& - The command following an AND && will only execute if the first command succeeds
+= exits with a zero exit status.
+
+|| - The command following an OR will only execute if the previous commands fails.
+
+
+
+&& = AND
+mkdir /tmp/bak && cp test.txt /tmp/bak/
+
+|| = OR
+cp test.txt /tmp/bak/ || cp test.txt /tmp
+
+
+Chaining multiple commands on the same line:
+--------------------------------------------
+Use a semi-colon > all commands will be executed.
+
+
+
+Explicitly define the return code of a shell script
+---------------------------------------------------
+exit 0
+exit 1
+exit 2
+exit 255
+etc...
+The default value is that of the last command
+executed.
