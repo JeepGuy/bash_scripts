@@ -25,3 +25,62 @@ sshd /sbin/nologin
 tcpdump /sbin/nologin
 jcbrent /bin/bash
 dockerroot /sbin/nologin
+
+
+SETTING THE Separator variables:
+--------------------------------
+-F option is used to set the input separator variable option.
+
+for a file in which the seperator is a pipe...
+
+awk -F"|" '{print $1, $4}' data.txt
+    > will separate the lines at the pipe not any spaces.
+CAN ALSO DO THIS IN THE BEGIN SECTION
+--------------------------------------
+Use the FS operator.
+
+awk 'BEGIN {FS="|"}
+> '{print $1, $4}' data.txt
+
+    > will ouput the same as the above command.
+
+
+OFS = Output Field Separator
+----------------------------
+        > default is a blank
+        > the comma in the above statement would be replaced by a blank.
+
+awk 'BEGIN {FS="|"; OFS=":"}
+> '{print $1, $4}' data.txt
+
+This will have the same data output but it will be separated by a colon.
+
+Default  record  separator is a new line
+-----------------------------------------
+    > so each new line is considered a record
+
+to change it because the data is formatted across several lines:
+------------
+So in an address book for instance:
+
+The FS field separator is a new line and the record separator is an empty string.
+
+awk 'BEGIN {FS=\n};RS=""}
+>{print $1, $3}' address.txt
+
+would give us the first field on line 1 + a space + the 3rd field on line 3 = all on 1 line.
+
+NOW add the output field separator to the above awk statement.
+
+awk 'BEGIN {FS=\n};RS=""; OFS="@"}
+>{print $1, $3}' address.txt
+     - the output is the same but instead of a space... the @ is used.
+
+Add the Output Record Separator ORS.
+------------------------------------
+
+awk 'BEGIN {FS=\n;RS="": ORS="|"}
+>{print $1, $3}' address.txt
+      -- This will print everything on the same line separated by pipe bars.
+
+...

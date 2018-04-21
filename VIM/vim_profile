@@ -1,0 +1,18 @@
+VIM Profile settings
+====================
+
+Some VIM options:
+
+:set number  = displays line numbers
+:syntax on   = turns on syntax highlighting
+:set tabstop=x   = default number of spaces in a tab
+:set autoindent=x = set the number of spaces indented automatically
+
+Save these settings the Profile file: .vimrc
+
+inside your home directory:
+/home/name
+~
+
+
+To see which vimrc file is being used type: echo $MYVIMRC 

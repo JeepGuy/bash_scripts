@@ -1,0 +1,65 @@
+old way with backticks...
+
+variables
+VAR="value"    NO SPACES
+
+echo builtin command generates STDOUT
+ - including displaying the contents of variables.
+
+Single verses double quotes:
+
+"${VAR} gets expanded"
+'${VAR} gets expanded' - a literal string everything gets displayed exactly as it appears and variable expansion is not applied.
+
+type [-afptP] <ame> [name]
+  will tell you if the command is a shell builtin or a linux command.
+
+help [-s] [pattern./..]
+ displays info about shell builtin commands
+
+man for format and display of the linux commands.
+
+Shell VARIABLES set automatically.
+
+i.e.  HOSTNAME
+   RANDOMUID
+etc...
+
+Command substitution
+----------------------
+VAR=$(command)
+
+VAR=`command`    OLD STYLE  (Backticks)
+
+echo "Output of a command: $(command)"
+i.e  echo "Output of the hostname command is: $(hostname)"
+
+Obtaining Standard Input (Read input from a user:)
+=======================
+
+The read shell builtin.
+
+read -p "Aprompt: "   VARIABLE
+(-p is the user prompt)
+
+
+File I/O Redirection
+====================
+
+COMMAND > /path/to/file    Redirects output to a new file or overwrites an existing file.
+
+COMMAND >> /path/to/file    Redirects output to a new file or APPENDS an existing file.
+
+COMMAND < /path/to/file    Redirect the contents of a file as STDIN
+
+COMMAND 2> /path/to/file    Redirects STDERR to a file
+
+COMMAND &> /path/to/file    Redirects both STDOUT and STDERR to a file
+   - Will it overwrite?
+
+
+COMMAND |& COMMAND         Redirects both STDOUT and STDERR as STDIN through a pipe input to an new command
+
+COMMAND >&2                Redirects STDOUT to STDERR. a new convention?   (kind a fuzzy on this)
+
+COMMAND >  /dev/null       Redirects all output to the null device or bitbucket.

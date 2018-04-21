@@ -1,0 +1,25 @@
+#!/bin/bash
+# Script Name:   var assignment builtins
+# Author: jcbrent
+# Created Date: 7 April 2018
+# Modified by: < append to the Modified by list for ehlp reference if needed.>
+# Modified Date(s):
+# Style Guide: This script is written to conform to the Google Bash Script Style
+#              Guide available at:  https://google.github.io/styleguide/shell.xml
+# PURPOSE:
+# Script to add new users to the system, for help desk personnel with Admin priviledges (root access).
+# ------------------------------------------------------------------------------------
+
+
+# HELP_DESK_ID_GLOBAL=$(id -u)
+
+ HELP_DESK_ID_GLOBAL=${UID}
+
+
+echo ${HELP_DESK_ID_GLOBAL}
+
+
+ HELP_DESK_ID_GLOBAL2="${UID}"
+
+echo "UID_VALUE="${UID}"  # This is the preferred way."
+echo "${HELP_DESK_ID_GLOBAL2}"
