@@ -45,7 +45,7 @@ function_two() {
 # log() {
 #   # The local variable is scoped to the function only...
 #   local VERBOSE="${1}"
-#   shift # skicks out the first argument and re-numbers all the remaing arguments.
+#   shift # kicks out the first argument and re-numbers all the remaing arguments.
 #   local MESSAGE="${@}"
 #   # @ expands to all positional parameters  starting from 1 (not 0)
 #   # $0 is still that name of the shell script itself... not the function...

@@ -60,6 +60,9 @@ COMMAND &> /path/to/file    Redirects both STDOUT and STDERR to a file
 
 COMMAND |& COMMAND         Redirects both STDOUT and STDERR as STDIN through a pipe input to an new command
 
-COMMAND >&2                Redirects STDOUT to STDERR. a new convention?   (kind a fuzzy on this)
+COMMAND >&2                Redirects STDOUT to STDERR. only after bash 4.0
+                            So this command first redirects stdout to /dev/null
+                            and then redirects stderr there as well.
+                            This effectively silences all output (regular or error) from the preceeding command.Basic tips
 
 COMMAND >  /dev/null       Redirects all output to the null device or bitbucket.

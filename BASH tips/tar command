@@ -1,0 +1,92 @@
+
+
+tape archive (original meaning)
+
+type -a tar   - shows that it is a file on the filesystem which is an executable
+
+
+man tar
+EXAMPLES
+       tar -cf archive.tar foo bar
+              # Create archive.tar from files foo and bar.
+
+       tar -tvf archive.tar
+              # List all files in archive.tar verbosely.
+
+       tar -xf archive.tar
+              # Extract all files from archive.tar.
+
+
+-c create
+-f specify a file
+-t list
+
+-v verbose
+
+-x extract
+
+Create tar -cvf    (list the files)
+
+
+to extract,,,
+tar -xvf  name of file to extract.
+
+
+Compression   tar.gz is a tarred file that is compressed. or .tgz
+===========================
+gzip
+compress
+gzip <name of file>
+un compress
+gunzip <name of file>
+
+
+Do both
+============
+
+tar-zcvf <name of file>  /path/to/files-to-add
+    -z compress
+    -c create
+    -v verbose
+    -f give a filename arg.
+
+------------------
+     -x, --extract, --get
+           extract files from an archive
+     -z, --gzip, --gunzip --ungzip
+
+     -Z, --compress, --uncompress
+     -c, --create
+           create a new archive
+
+EXTRACTION
+==========
+
+
+tar -zxzf rebol.tar.gz
+ > add -z for a zipped or compressed file.
+
+     -v, --verbose
+           verbosely list files processed
+
+     -f, --file ARCHIVE
+           use archive file or device ARCHIVE
+
+REMOVEs the preceeding / so when you extract it it won't override the existing directory.
+
+
+
+
+
+Compress an Entire Directory or a Single File
+
+Use the following command to compress an entire directory or a single file on Linux. It’ll also compress every other directory inside a directory you specify–in other words, it works recursively.
+
+tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+
+Here’s what those switches actually mean:
+
+    -c: Create an archive.
+    -z: Compress the archive with gzip.
+    -v: Display progress in the terminal while creating the archive, also known as “verbose” mode. The v is always optional in these commands, but it’s helpful.
+    -f: Allows you to specify the filename of the archive.
