@@ -1,0 +1,92 @@
+awk and cut network info
+
+Displaying open network ports.
+
+netstat -nutl
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+
+
+Get rid of the first line...
+=============================
+
+netstat -nutl |grep -v '^Active'
+
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+
+
+Get rid of the second line
+
+netstat -nutl |grep -v '^Active' | grep -v '^Proto'
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+
+
+grep -E option allows you to use extended regular expressions...
+====
+grep -Ev
+
+| pipe bar in regex is an "or"
+
+COMBINE the patterns:
+
+netstat -nutl | grep -Ev  '^Active|^Proto'
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+
+ANOTHER Way:
+------------   Grep for a colon... to get same result less steps...
+
+netstat -nutl | grep ':'
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+
+GOAL: get the ports only...
+  - could split on a colon and print second field..
+   - doesn't give us what we want.
+
+netstat -nutl | grep ':' | cut -d ':' -f 2
+111             0.0.0.0
+53        0.0.0.0
+22              0.0.0.0
+631           0.0.0.0
+
+All the ports are in the fourth column
+ cut doesn't work - use awk which separates by whitespace.
+ --- now the data is seperated by a colon
+
+netstat -nutl | grep ':' | awk '{print $4}'
+0.0.0.0:111
+192.168.122.1:53
+0.0.0.0:22
+127.0.0.1:631
+127.0.0.1:25
+:::111
+:::22
+
+with a second awk we are let with the data we want.
+
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}'
+111
+53
+22
+631
+25
+
+GET only IPv4 data add a four to the options for netstat command
+ - a different way...
+
+netstat -4nutl | grep ':' | awk '{print $4}' | cut -d ':' -f 2
+111
+53
+22
+
+
+
+Determining what processes are listening on which ports.

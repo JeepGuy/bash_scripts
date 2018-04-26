@@ -1,0 +1,277 @@
+Sort and Unique
+
+sort   - sorts a list alphabetically
+
+Reverse - use  -r option
+
+sort -r <name of file>
+
+Now sort with intergers
+-------------------------
+
+cut -d (delimiter) ':' -f (field) 3 <name of file>
+
+cut -d ':' -f 3 /etc/passwd
+0
+1
+2
+ cut -d ':' -f 3 /etc/passwd | sort
+0
+1
+1000
+
+- so this did not sort alphbetically.....
+It sorted based on the first column first then the second column etc...
+
+Instead use the -n option for numbers
+
+cut -d ':' -f 3 /etc/passwd | sort -n
+0
+1
+2
+3
+
+Reverse the order with the -r option
+
+cut -d ':' -f 3 /etc/passwd | sort -n -r
+65534
+1000
+999
+
+Now use this with sudo and the du (disk usage) command... in kilobytes
+
+sudo du /var | sort -n
+
+(too much output)
+
+With -h human readable output.
+
+sudo du -h  /var | sort -n
+
+Sort with a -h option    a human numeric sort
+----------------------------------------------
+
+853M	/var/cache/yum/x86_64
+853M	/var/cache/yum/x86_64/7
+855M	/var/cache
+1.1G	/var/lib
+2.3G	/var
+[jcbrent@localhost ~]$ sudo du -h /var | sort -h
+ Shows that G is a Gigabyte, M is a megabyte etc...
+
+
+netstat -nutl | grep ':'
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN
+
+netstat -nutl | grep ':' | awk '{print $4}'
+0.0.0.0:111
+192.168.122.1:53
+0.0.0.0:22
+127.0.0.1:631
+
+
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}'
+111
+53
+22
+
+
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}' | sort -n
+22
+22
+25
+25
+53
+
+now add the -u option for unique
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}' | sort -nu
+22
+25
+53
+
+
+The uniq which is unique...
+---------------------------
+
+uniq must have a sorted list first in order to work.
+because it only compares the line with the preceeding line...
+
+first a sorted list
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}' | sort -n | uniq
+22
+25
+53
+67
+111
+631
+
+now an unsorted list.
+ netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}' |  uniq
+111
+53
+22
+631
+25
+111
+22
+631
+25
+
+When you want to find out how uniq lines there were use uniq -c
+
+netstat -nutl | grep ':' | awk '{print $4}' | awk -F ':' '{print $NF}' | sort -n | uniq -c
+      2 22
+      2 25
+      2 53
+      1 67
+      2 111
+      2 631
+
+If you want to find out how many syslog message a program is producing do this...
+
+sudo cat /var/log/messages
+ - gives all the messages...
+ First find the field...    sudo cat /var/log/messages | awk '{print $5}'
+
+First Sort:   sudo cat /var/log/messages | awk '{print $5}' | sort
+
+sudo cat /var/log/messages | awk '{print $5}' | sort | uniq -c
+
+   1760 systemd:
+     42 systemd[1]:
+      1 systemd-fsck:
+      1 systemd-journald[132]:
+      1 systemd-journald[135]:
+     14 systemd-logind:
+      3 systemd-udevd:
+      2 tracker-store.desktop:
+      2 udisksd[2525]:
+      2 udisksd[2533]:
+      6 vboxdrv.sh:
+      2 vmware-user.desktop:
+
+Now sort them by occurrence
+sudo cat /var/log/messages | awk '{print $5}' | sort | uniq -c | sort -n
+
+     69 journal:
+     70 dockerd:
+     90 NetworkManager[1053]:
+     98 dbus-daemon:
+    100 NetworkManager[1052]:
+    917 kernel:
+   1760 systemd:
+
+The WC command... Word count - can also cout characters, bytes etc...
+
+wc /etc/passwd
+  44   90 2306 /etc/passwd
+
+First column is the number of lines in the file
+Second is the number of words
+Third column is the number of characters
+
+wc doesn't know words it considers any series of characters delineated by a white space
+a word.
+
+-w   = word count
+-c byte count
+-l line count
+
+
+How many accounts are suing bash?
+
+grep bash /etc/passwd
+
+grep bash /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+jcbrent:x:1000:1000:Jim Brent:/home/jcbrent:/bin/bash
+
+grep bash /etc/passwd | wc -l
+2
+
+OR you can the -c option of grep
+
+grep -c bash /etc/passwd
+2
+
+
+Sorting using a sort key     -k   option
+-------------------------
+-t   the sort field seperator.
+
+ Sorting on the third field which is numeric.
+
+cat /etc/passwd | sort -t ':' -k 3 -n
+
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+ntp:x:38:38::/etc/ntp:/sbin/nologin
+gdm:x:42:42::/var/lib/gdm:/sbin/nolo
+
+
+Looking at Log files:
+======================
+
+web traffic
+cat access_log | cut -d '"' -f 2
+OR
+
+cut -d '"' -f 2  access_log
+
+left with 3 colums of dat....
+SO:
+
+cut -d '"' -f 2  access_log  | cut -d  ' ' -f 2
+
+OR ----
+
+awk '{print $7]' access_log.....
+--- continuing on the original line of thinking...
+
+cut -d '"' -f 2  access_log  | cut -d  ' ' -f 2 | sort
+then
+cut -d '"' -f 2  access_log  | cut -d  ' ' -f 2 | sort | uniq -c
+
+cut -d '"' -f 2  access_log  | cut -d  ' ' -f 2 | sort | uniq -c | sort -n
+
+To show only the last three lines of output:
+
+cut -d '"' -f 2  access_log  | cut -d  ' ' -f 2 | sort | uniq -c | sort -n | tail -d
+
+PUt it into a script so you don't have to do it again.
+------------------------------------------------------------
+#!/bin/bash
+#
+
+LOG_FILE+"${1}"
+
+if [[ ! -e "${LOG_FILE}" ]]    # if not exists log file
+then
+  echo "files does not exist"  >$2
+  exit 1
+fi
+
+cut -d '"' -f 2  ${LOG_FILE}  | cut -d  ' ' -f 2 | sort | uniq -c | sort -n | tail -d
+
+Now make it executable and give it a try...
+
+
+
+
+
+
+
+
+...

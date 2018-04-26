@@ -57,7 +57,7 @@ daem
  THIS RANGE IS EXACTLY THE SAME AS -c 1-4
 
 Pick out multiple individual characters by separating them with a comma
----------    Will not chagne the order if if listed out of  order.
+---------    Will not change the order if if listed out of  order.
 cut -c 1,3,5 /etc/passwd
 ro:
 bnx
@@ -190,7 +190,7 @@ first,last (the header of the ficticous .csv file)
 Now reverse the grep search to exclude it from the results.
 ****************
 Inverts option...   -v
-
+==================
 grep  -v '^first,last$'  people.csv
 --- This will match any options that do NOT match the pattern supplied.
 Therefore this will list all the contents of the .csv file.
