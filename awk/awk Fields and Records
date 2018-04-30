@@ -124,3 +124,15 @@ functions 	 jcbrent
 get_ssp_data.sh 	 jcbrent
 kuberAllValuesHelper.yaml 	 jcbrent
 kuberValuesImageListingHelper.txt 	 jcbrent
+
+Print a range of columns
+========================
+
+
+
+
+Print a range of lines
+======================
+
+ls -la | awk 'NR>=25 && NR>=50 [ print ]'
+   * This will print lines 25 - 50

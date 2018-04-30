@@ -1,0 +1,128 @@
+    Vagrant Multi-Machine Setup
+
+mkdir multinet
+cd multinet/
+vagrant init jasonc/centos7
+
+A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+
+Open  Vagrantfile and add first machine stanza
+
+  config.vm.define "admin01" do | admin01 |
+    admin01.vm.hostname = "admin01"
+    admin01.vm.network "private_network" , ip: "10.9.8.10"
+  end
+
+and keep adding stanzas for the other virtual machines.
+
+  config.vm.define "server01" do | server01 |
+    server01.vm.hostname = "server01"
+    server01.vm.network "private_network" , ip: "10.9.8.11"
+  end
+
+  config.vm.define "server02" do | server02 |
+    server02.vm.hostname = "server02"
+    server02.vm.network "private_network" , ip: "10.9.8.12"
+  end
+
+Now run vargrant up ... will bring up all three systems.
+ - if you want to bring up only want to bring up one machine
+ie   vagrant up admin01
+
+now verify with vagrant status...
+
+Current machine states:
+
+admin01                   running (virtualbox)
+server01                  running (virtualbox)
+server02                  running (virtualbox)
+
+to ssh you must specify the machine you are connection to...
+
+vagrant ssh admin01
+
+Ping to verify other machines are running.
+
+[vagrant@admin01 ~]$ ping 10.9.8.11
+PING 10.9.8.11 (10.9.8.11) 56(84) bytes of data.
+64 bytes from 10.9.8.11: icmp_seq=1 ttl=64 time=1.13 ms
+64 bytes from 10.9.8.11: icmp_seq=2 ttl=64 time=0.528 ms
+64 bytes from 10.9.8.11: icmp_seq=3 ttl=64 time=0.550 ms
+^C
+--- 10.9.8.11 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2001ms
+rtt min/avg/max/mdev = 0.528/0.736/1.131/0.280 ms
+[vagrant@admin01 ~]$ ping 10.9.8.12
+PING 10.9.8.12 (10.9.8.12) 56(84) bytes of data.
+64 bytes from 10.9.8.12: icmp_seq=1 ttl=64 time=0.864 ms
+64 bytes from 10.9.8.12: icmp_seq=2 ttl=64 time=0.449 ms
+64 bytes from 10.9.8.12: icmp_seq=3 ttl=64 time=0.475 ms
+^C
+--- 10.9.8.12 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 0.449/0.596/0.864/0.189 ms
+
+
+Resolving hostname...
+add the machines to the etc hosts file or set up a DNS server.
+
+cat /etc/hosts
+127.0.0.1	admin01	admin01
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+
+FORMAT:  Ip address followed by a name and any other additonal names you wish
+to use to access those systems by..
+
+
+    Using the “tee” command to append data to a file.
+
+man tee
+
+echo '10.9.8.11 server01' | sudo tee -a /etc/hosts
+ - using the -a option appends to the file and doesn't overwrite it.
+
+will both print to screen and append the file.
+
+[vagrant@admin01 ~]$ echo '10.9.8.11 server01' | sudo tee -a /etc/hosts
+10.9.8.11 server01
+[vagrant@admin01 ~]$ echo '10.9.8.12 server02' | sudo tee -a /etc/hosts
+10.9.8.12 server02
+
+[vagrant@admin01 ~]$ cat /etc/hosts
+127.0.0.1	admin01	admin01
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.9.8.11 server01
+
+    Why “sudo echo >> file.txt” does NOT work.
+-------------------------------------------------
+
+sudo echo test >> /etc/hosts
+- the sudo command operates on echo... not the redirection operator.
+You get permission denied.
+
+TESTING the /etc/hosts file addition
+
+[vagrant@admin01 ~]$ ping -c3 server01
+PING server01 (10.9.8.11) 56(84) bytes of data.
+64 bytes from server01 (10.9.8.11): icmp_seq=1 ttl=64 time=0.589 ms
+64 bytes from server01 (10.9.8.11): icmp_seq=2 ttl=64 time=0.505 ms
+64 bytes from server01 (10.9.8.11): icmp_seq=3 ttl=64 time=0.550 ms
+
+--- server01 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 0.505/0.548/0.589/0.034 ms
+
+
+[vagrant@admin01 ~]$ ping -c1 server02
+PING server02 (10.9.8.12) 56(84) bytes of data.
+64 bytes from server02 (10.9.8.12): icmp_seq=1 ttl=64 time=0.709 ms
+
+--- server02 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.709/0.709/0.709/0.000 ms

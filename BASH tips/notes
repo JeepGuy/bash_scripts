@@ -1,0 +1,27 @@
+while [[ "${X}" -eq 1 ]]; do   echo "This is the value of X: ${X}"; X=7 ; done
+
+echo $X
+
+
+[vagrant@localusers vagrant]$ type -a true
+true is a shell builtin
+true is /usr/bin/true
+
+You can get help on a builtin by using help and the name of the command...
+the shell help is in the man page.
+
+type -a sleep
+sleep is /usr/bin/sleep
+
+[vagrant@localusers vagrant]$ while [[ true ]]
+> do
+> echo "${RANDOM}"
+> sleep 1
+> done
+32441
+
+# Append a special character to the password.
+SPECIAL_CHARACTER=$(echo '!@#$%^&()-=+'  |fold -w1 | shuf |head -c1)
+
+
+ Usage: ./add-newer-local-user.sh USERNAME [COMMENT] ...

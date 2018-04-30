@@ -1,0 +1,27 @@
+Critical info about sudo.
+=========================
+
+ssh server01 id
+uid=1000(vagrant) gid=1000(vagrant) groups=1000(vagrant)
+
+
+ssh server01 sudo id
+> means we are executing the ssh command as the current user.
+> The sudo id command means we are executing the id command as root.
+
+[vagrant@admin01 vagrant]$ ssh server01 sudo id
+uid=0(root) gid=0(root) groups=0(root)
+> you are connected to the machine as the vagrant user
+HOWEVER you are executing the id command as root (sudo)
+
+sudo ssh server01 id
+> means we are connecting to server01 as root
+and then running the command as the current users - which happens to be the root
+user.
+
+the results are the same in this case ...
+EXCEPT you have to enter in the root password...
+--------------------------------------------------
+
+[vagrant@admin01 vagrant]$ ssh server01 sudo id
+uid=0(root) gid=0(root) groups=0(root)

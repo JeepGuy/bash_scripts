@@ -1,9 +1,61 @@
+tar command   - tape archive (original meaning)
+===========
+
+tar and gzip
+============
+
+Create
+======
+Compress an Entire Directory or a Single File
+Use the following command to compress an entire directory or a single file on Linux.
+It’ll also compress every other directory inside a directory you specify–in other words, it works recursively.
+
+tar-zcvf <name of file>  /path/to/files-to-add
+aka
+tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+
+    -c, --create   - create a new archive
+    -v verbose
+    -z: Compress the archive with gzip.
+    -v: Display progress in the terminal while creating the archive, also known as “verbose” mode. The v is always optional in these commands, but it’s helpful.
+    -f: Allows you to specify the filename of the archive > -f give a filename arg.
 
 
-tape archive (original meaning)
+EXTRACT
+=======
 
-type -a tar   - shows that it is a file on the filesystem which is an executable
+tar -zxvf rebol.tar.gz
+ > add -z for a zipped or compressed file.
 
+- Automatically removes the preceeding / so when you extract it it won't override the existing directory.
+
+
+un tar a file to a different directory
+======================================
+
+To extract an archive to a directory different from the current,
+use the -C, or --directory, tar option, as in
+
+    tar -xf archive.tar -C /target/directory
+
+*** Note that the target directory has to exist before running that command
+    (it can be created by mkdir /target/directory).
+To simply extract the contents and create target directory if it is missing:
+
+  mkdir -p /target/directory && tar xf archive.tar -C /target/directory
+
+To extract and also remove the root(first level) directory in the zip
+
+  mkdir -p /target/directory && tar xf archive.tar -C /target/directory --strip-components=1
+
+
+More background info:
+================================================================================
+
+type -a tar   - shows that it is a file on the file system which is an executable
+                THEREFORE use the man page.
+tar is /usr/bin/tar
+tar is /bin/tar
 
 man tar
 EXAMPLES
@@ -16,19 +68,22 @@ EXAMPLES
        tar -xf archive.tar
               # Extract all files from archive.tar.
 
-
--c create
--f specify a file
--t list
-
--v verbose
-
--x extract
+------------------
+     -x, --extract, --get
+           extract files from an archive
+     -v, --verbose
+           verbosely list files processed
+     -f, --file ARCHIVE
+           use archive file or device ARCHIVE
+           specify a file
+     -z, --gzip, --gunzip --ungzip
+     -Z, --compress, --uncompress
+     -t list
+     -c create
 
 Create tar -cvf    (list the files)
 
-
-to extract,,,
+Extract
 tar -xvf  name of file to extract.
 
 
@@ -39,54 +94,3 @@ compress
 gzip <name of file>
 un compress
 gunzip <name of file>
-
-
-Do both
-============
-
-tar-zcvf <name of file>  /path/to/files-to-add
-    -z compress
-    -c create
-    -v verbose
-    -f give a filename arg.
-
-------------------
-     -x, --extract, --get
-           extract files from an archive
-     -z, --gzip, --gunzip --ungzip
-
-     -Z, --compress, --uncompress
-     -c, --create
-           create a new archive
-
-EXTRACTION
-==========
-
-
-tar -zxzf rebol.tar.gz
- > add -z for a zipped or compressed file.
-
-     -v, --verbose
-           verbosely list files processed
-
-     -f, --file ARCHIVE
-           use archive file or device ARCHIVE
-
-REMOVEs the preceeding / so when you extract it it won't override the existing directory.
-
-
-
-
-
-Compress an Entire Directory or a Single File
-
-Use the following command to compress an entire directory or a single file on Linux. It’ll also compress every other directory inside a directory you specify–in other words, it works recursively.
-
-tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
-
-Here’s what those switches actually mean:
-
-    -c: Create an archive.
-    -z: Compress the archive with gzip.
-    -v: Display progress in the terminal while creating the archive, also known as “verbose” mode. The v is always optional in these commands, but it’s helpful.
-    -f: Allows you to specify the filename of the archive.

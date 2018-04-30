@@ -23,3 +23,18 @@ echo ${HELP_DESK_ID_GLOBAL}
 
 echo "UID_VALUE="${UID}"  # This is the preferred way."
 echo "${HELP_DESK_ID_GLOBAL2}"
+
+
+ Assignment:
+ -----------
+ Can assign the results of a command: such as hostname.
+ SERVER_NAME=$(hostname)   OR older way has back-ticks: SERVER_NAME=$`hostname`
+ > must have parenthesis around the command.
+
+Expression evaluation
+----------------------
+
+for server in $(cat servers)
+
+> the $ parenthesis means to evaluate or expand the out put the of the expression
+inside the ().
