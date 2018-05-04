@@ -76,7 +76,7 @@ echo "Second arg: ${2}"
 echo "Third arg: ${3}"
 echo
 # Inspect OPTIND
-echo "GETOPS gives is OPTIND which stores the positional paramaters."
+echo "GETOPS gives us OPTIND which stores the positional paramaters."
 echo
 echo "OPTIND: ${OPTIND}"
 
