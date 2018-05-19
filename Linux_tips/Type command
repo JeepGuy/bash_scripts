@@ -1,0 +1,7 @@
+ type [-afptP] <name> [name]
+   will tell you if the command is a shell builtin or a linux command.
+
+ help [-s] [pattern./..]
+  displays info about shell builtin commands
+
+ man for format and display of the linux commands.

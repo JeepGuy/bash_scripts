@@ -1,0 +1,8 @@
+
+Obtaining Standard Input (Read input from a user:)
+=======================
+
+The read shell builtin.
+
+read -p "Aprompt: "   VARIABLE
+(-p is the user prompt)

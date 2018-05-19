@@ -32,4 +32,4 @@ echo "${PASSWORD}${SPECIAL_CHARACTER}"
 
 
 date +%s | tail  -c6
-date -I
+date -Ie

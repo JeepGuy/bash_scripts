@@ -1,64 +1,48 @@
-old way with backticks...
+File Descriptors
+================
+A number that represent an open file.
+    - Computers reference an open file by number rather than name.
+By default every new process starts with three open file descriptors:
+    (File Descriptor = FD)
+  FD0 = STDIN
+  FD1 = STDOUT
+  FD2 = STDERR
 
-variables
-VAR="value"    NO SPACES
+To read input into a Variable implicitly you don't use the FD.
+--------------
+  read X < /etc/centos-release
+  echo ${X} would yield: CentOS Linux release 7.x etc...
 
-echo builtin command generates STDOUT
- - including displaying the contents of variables.
-
-Single verses double quotes:
-
-"${VAR} gets expanded"
-'${VAR} gets expanded' - a literal string everything gets displayed exactly as it appears and variable expansion is not applied.
-
-type [-afptP] <ame> [name]
-  will tell you if the command is a shell builtin or a linux command.
-
-help [-s] [pattern./..]
- displays info about shell builtin commands
-
-man for format and display of the linux commands.
-
-Shell VARIABLES set automatically.
-
-i.e.  HOSTNAME
-   RANDOMUID
-etc...
-
-Command substitution
-----------------------
-VAR=$(command)
-
-VAR=`command`    OLD STYLE  (Backticks)
-
-echo "Output of a command: $(command)"
-i.e  echo "Output of the hostname command is: $(hostname)"
-
-Obtaining Standard Input (Read input from a user:)
-=======================
-
-The read shell builtin.
-
-read -p "Aprompt: "   VARIABLE
-(-p is the user prompt)
-
+  EXPLICITLY:
+  read X 0< /etc/centos-release
+    yields the same results as above.
+    - Key lesson is that the 0 must have no spaces between it and the redirection
+      operator.
+    e.g.           0<
 
 File I/O Redirection
 ====================
 
-COMMAND > /path/to/file    Redirects output to a new file or overwrites an existing file.
+COMMAND > /path/to/file    Redirects STDOUT to a new file or overwrites an existing file.
 
-COMMAND >> /path/to/file    Redirects output to a new file or APPENDS an existing file.
+COMMAND >> /path/to/file    Redirects STDOUT to a new file or APPENDS an existing file.
 
 COMMAND < /path/to/file    Redirect the contents of a file as STDIN
 
-COMMAND 2> /path/to/file    Redirects STDERR to a file
+COMMAND 2> /path/to/file    Redirects STDERR to a file named file.
+                            # Discard STDERR  2> /dev/null
+        To redirect the errors to a file use two greater than signs...
+        2>> /path/to/file   APPENDS to the file.
+
 
 COMMAND &> /path/to/file    Redirects both STDOUT and STDERR to a file
-   - Will it overwrite?
-
+        &>> will append a file
+                            This appends STDERR to STDOUT
+OLD WAY: 2>&1              & use a file descriptor instead of a file name. (Replaces the file name)
 
 COMMAND |& COMMAND         Redirects both STDOUT and STDERR as STDIN through a pipe input to an new command
+
+  i.e.   head  -n1  /etc/passwd /etc/hosts  /fakefile  |&  cat -n 
 
 COMMAND >&2                Redirects STDOUT to STDERR. only after bash 4.0
                             So this command first redirects stdout to /dev/null
@@ -66,3 +50,81 @@ COMMAND >&2                Redirects STDOUT to STDERR. only after bash 4.0
                             This effectively silences all output (regular or error) from the preceeding command.
 
 COMMAND >  /dev/null       Redirects all output to the null device or bitbucket.
+
+
+
+
+================================
+#!/bin/bash
+
+# This script demonstrates I/O redirection.
+
+# Redirect STDOUT to a file.
+FILE="/tmp/data"
+head -n1 /etc/passwd > ${FILE}
+
+# Redirect STDIN to a program.
+read LINE < ${FILE}
+echo "LINE contains: ${LINE}"
+
+# Redirect STDOUT to a file, overwriting the file.
+head -n3 /etc/passwd > ${FILE}
+echo
+echo "Contents of ${FILE}:"
+cat ${FILE}
+
+# Redirect STDOUT to a file, appending to the file.
+echo "${RANDOM} ${RANDOM}" >> ${FILE}
+echo "${RANDOM} ${RANDOM}" >> ${FILE}
+echo
+echo "Contents of ${FILE}:"
+cat ${FILE}
+
+# Redirect STDIN to a program, using FD 0 (File Descriptor 0)
+read LINE 0< ${FILE}
+echo
+echo "LINE contains: ${LINE}"
+
+# Redirect STDOUT to a file using FD 1, overwriting the file.
+head -n3 /etc/passwd 1> ${FILE}
+echo
+echo "Contents of ${FILE}:"
+cat ${FILE}
+
+# Redirect STDERR to a file using FD 2.
+ERR_FILE="/tmp/data.err"
+head -n3 /etc/passwd /fakefile 2> ${ERR_FILE}
+echo
+echo "Contents of ${ERR_FILE}:"
+cat ${ERR_FILE}
+
+# Redirect STDOUT and STDERR to a file.
+head -n3 /etc/passwd /fakefile &> ${FILE}
+echo
+echo "Contents of ${FILE}:"
+cat ${FILE}
+
+# Redirect STDOUT and STDERR through a pipe.
+echo
+head -n3 /etc/passwd /fakefile |& cat -n
+
+# Send output to STDERR
+echo "This is STDERR!" >&2
+
+# Discard STDOUT
+echo
+echo "Discarding STDOUT:"
+head -n3 /etc/passwd /fakefile > /dev/null
+
+# Discard STDERR
+echo
+echo "Discarding STDERR:"
+head -n3 /etc/passwd /fakefile 2> /dev/null
+
+# Discard STDOUT and STDERR
+echo
+echo "Discarding STDOUT and STDERR:"
+head -n3 /etc/passwd /fakefile &> /dev/null
+
+# Clean up
+rm ${FILE} ${ERR_FILE} &> /dev/null

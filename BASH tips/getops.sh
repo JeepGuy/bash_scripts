@@ -14,8 +14,7 @@
 
 # functions
 useage() {
-  echo "Usage: ${0} [-vs]  [-l LENGTH]" >&2
-        # >&2   Redirects STDOUT to STDERR.
+  echo "Usage: ${0} [-vs]  [-l LENGTH]" >&2  # >&2   Redirects STDOUT to STDERR.
   echo 'Generate a random password.'
   echo '  -l  LENGTH  Specify the password length.'
   echo '  -s          Append a special character to the password.'

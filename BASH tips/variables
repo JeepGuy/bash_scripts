@@ -44,4 +44,29 @@ Must include curly braces if you are using the variable with other text/data.
  -----------
  Can assign the results of a command: such as hostname.
  SERVER_NAME=$(hostname)   OR older way has back-ticks: SERVER_NAME=$`hostname`
- > must have parenthesis around the command.
+ > must have parenthesis around the command.\\variables
+ VAR="value"    NO SPACES
+
+ echo builtin command generates STDOUT
+  - including displaying the contents of variables.
+
+ Single verses double quotes:
+
+ "${VAR} gets expanded"
+ '${VAR} gets expanded' - a literal string everything gets displayed exactly as it appears and variable expansion is not applied.
+
+
+ Shell VARIABLES set automatically.
+
+ i.e.  HOSTNAME
+    RANDOMUID
+ etc...
+
+ Command substitution
+ ----------------------
+ VAR=$(command)
+
+ VAR=`command`    OLD STYLE  (Backticks)
+
+ echo "Output of a command: $(command)"
+ i.e  echo "Output of the hostname command is: $(hostname)"
