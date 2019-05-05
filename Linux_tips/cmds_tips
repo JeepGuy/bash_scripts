@@ -1,0 +1,86 @@
+
+8 Useful Commands:
+
+!!  Bang Bang - redo the last command 
+
+# 1. sudo !! - redo the last command as root.
+-----
+
+
+# 2. Contrl + x + e = Open you editor in the terminal  (emacs only) when you exit from the editor it will run commands.
+
+-----
+
+# 3. Create a RAM Disk ( a temporary drive in memeory that will get deleted when you unmount the drive)
+
+mkdir -p /mnt/ram
+mount -t tmpfs /mnt/ram -0 size=8192M
+
+Test:
+
+dd if=/dev/zero of=test.iso bs=1M count=8000
+3974+0 records in
+3974+0 records out
+4167041024 bytes (4.2 GB) copied, 43.6589 s, 95.4 MB/s
+
+mount -t tmpfs ram -o size=8192M
+
+-----
+
+# 4. Hide commands from History
+
+preceed the command with a space
+
+ls -la 
+verses
+ ls -la
+
+
+---
+
+# 5. Fix a really long command that you messed up.
+
+fc 
+
+fc will open the last command in an editor
+
+--- 
+
+# 6. Create a tunnel with ssh (local prt 3337 -> remotehost's 127.0.0.1 on port 6379
+ - Useful for tunneling to the cloud
+
+ssh -L 3337:127.0.0.1:6379:root@fqdn.com -N
+
+----
+
+# 7. quick create folders
+mkdir -p folder/{sub1,sub2}/{sub1,sub3,sub3}
+
+mkdir -p folder/{1..100}/{1..100} # will make 100 folders with 100 subfolders each = 10,000 folders created
+
+---
+
+# 8. intercept stdout and log to a file
+cat file | tee -a log | cat > /dev/null
+ -a = append to a file
+
+# bocus: exit a  termial but leave all preccesses running
+
+usually can use nohup but that is used when you start a process because the terminal sends a hangup signal to all 
+child processes when you exit.
+.
+to leave all processes running you disown
+
+disown -a  && exit 
+
+ 
+
+
+
+
+
+
+
+
+
+
