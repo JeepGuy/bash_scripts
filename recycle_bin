@@ -1,0 +1,61 @@
+#!/bin/bash
+# Author: jcbrent    Created Date: 2021-09-25
+# Inspired by Llamar H. who suggested this based on a former co-wroker's suggestion
+#
+# A Script to add a recycle bin capability to any Linux Workstation or Server
+# ------------------------------------------------------------------------------------
+
+GLOBAL_VAR1="one"
+GLOBAL_VAR2="two"
+
+
+# Create Functions second - so they are read into the current bash session second
+#------------- Sample below
+function function_one() {
+	  local LOCAL_VAR1="one"
+	    # <Replace with function code.>
+	      echo "This script called the sample function (function_one) which does nothing (except print this line)."
+      }
+
+
+# echo " "
+# echo " Starting the \"XYZ/\" Script  - Named:  \"XYZ.sh "
+# echo " ----------------------------------------------------------------------------- "
+# echo " "
+
+
+
+# check if .local/bin exists, if not create it. 
+if [ ! -d "${HOME}/.local/bin" ] ; then
+	    # PATH="${HOME}/.local/bin:$PATH"
+	        # call function to install script.
+		    # mkdir -p
+		    echo " creating the .local/bin/ directory"
+fi
+
+# Copy the script to the bin on path.
+# cp /home/jcbrent/workspace/bash_scripts/recycle_bin /home/jcbrent/.local/bin/
+
+# check if .local/bin exists, if not create it. 
+if [ ! -d "${HOME}/z_recycle_bin" ] ; then
+
+	    mkdir -p  ${HOME}/z_recycle_bin/ 
+	        echo " Created the recycle bin directory:   z_recycle_bin"
+fi
+
+# Get the first command line argument use it for the nfile to be sent to the recycle bin.
+FILE_TO_RECYCLE="${1}"
+
+echo " "
+mv ${FILE_TO_RECYCLE} ${HOME}/z_recycle_bin/
+echo " "
+echo "Moved ${FILE_TO_RECYCLE}  to the Recycle Bin @ ${HOME}/z_recycle_bin/  "
+echo " "
+
+
+
+
+
+
+
+
